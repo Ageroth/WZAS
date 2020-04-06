@@ -1,6 +1,6 @@
 1) Połączenie ssh do maszyny przez gcloud
 gcloud compute --project "id_projektu" ssh --zone [zone] [nazwa maszyny]
-gcloud compute --project "nierelacyjne-264309" ssh --zone us-central1-a datacenter1
+gcloud compute --project "wzas-273311" ssh --zone europe-west1-b shard1server1
 
 gcloud compute --project "global-harmony-255009" ssh --ssh-flag="-vvv" --zone europe-west4-a mongo1
 
@@ -22,11 +22,11 @@ sudo git clone https://github.com/PrzemyslawLapinski/nierelacyjneOstatniEtep.git
 git status
 
 4) odpalenie sharda
-/nierelacyjneOstatniEtep/shard1$ sudo docker-compose up -d
+/wzas202004/bazaMongoDB/shard/shard1$ sudo docker-compose up -d
 docker ps
 
 5) wejscie do kontenera
-docker exec -it mongo bash
+docker exec -it shard1svr1 bash
 mongo
 
 
@@ -34,3 +34,12 @@ mongo
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' nazaKontenera
 7) wyłącznie kontenera i usuniecie volumenu
 docker-compose down -v
+
+
+
+8) import danych
+mongoimport -d superstore -c songs --type csv --file songdata.csv --headerline
+
+9) wyswietlenie piosenek
+use superstore
+db.songs.find();
