@@ -44,5 +44,5 @@ use superstore
 db.songs.find();
 
 10) odpalenie backendu na dockerze
-docker build -t rest-api-build .
+docker build --no-cache -t rest-api-build .
 docker run -p 8000:8080 rest-api-build
