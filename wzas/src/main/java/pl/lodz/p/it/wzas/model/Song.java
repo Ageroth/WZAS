@@ -4,17 +4,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 
-@Document(indexName = "songs")
+@Document(indexName = "songs", type = "doc")
 public class Song {
     @Id
     private String id;
-    @Field
     private String artist;
-    @Field
     private String song;
-    @Field
     private String link;
-    @Field
     private String text;
 
     public String getId() {

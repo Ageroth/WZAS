@@ -32,7 +32,7 @@ public class Config {
                 .put("path.home", elasticsearchHome)
                 .put("cluster.name", clusterName).build();
         TransportClient client = new PreBuiltTransportClient(elasticsearchSettings);
-        client.addTransportAddress(new TransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
+        client.addTransportAddress(new TransportAddress(InetAddress.getByName("35.205.203.77"), 9200));
         return client;
     }
 
