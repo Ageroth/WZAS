@@ -19,25 +19,36 @@ import java.net.UnknownHostException;
 @EnableElasticsearchRepositories(basePackages = "pl.lodz.p.it.wzas.repository")
 public class Config {
 
-    @Value("${elasticsearch.home:/wzas202004/elasticSearch/elasticsearch-7.6.2}")
+    /*@Value("${elasticsearch.home:/wzas202004/elasticSearch/elasticsearch-7.6.2}")
     private String elasticsearchHome;
 
-    @Value("${elasticsearch.cluster.name:elasticsearch}")
-    private String clusterName;
+    @Value("${elasticsearch.clusterName}")
+    private String clusterName;*/
 
-    @Bean
+    /*@Bean
     public Client client() throws UnknownHostException {
         Settings elasticsearchSettings = Settings.builder()
                 .put("client.transport.sniff", true)
                 .put("path.home", elasticsearchHome)
                 .put("cluster.name", clusterName).build();
         TransportClient client = new PreBuiltTransportClient(elasticsearchSettings);
-        client.addTransportAddress(new TransportAddress(InetAddress.getByName("127.0.0.1"), 9200));
+        client.addTransportAddress(new TransportAddress(InetAddress.getByName("35.205.203.77"), 9200));
+        return client;
+    }*/
+
+    @Bean
+    Client client() throws UnknownHostException {
+        Settings settings = Settings.builder()
+                .put("cluster.name", "elasticsearch")
+                .build();
+        TransportClient client = new PreBuiltTransportClient(settings);
+        client.addTransportAddress(new TransportAddress(InetAddress.getByName("127.0.0.1")
+                , 9300));
         return client;
     }
 
-    @Bean
+    /*@Bean
     public ElasticsearchOperations elasticsearchTemplate() throws UnknownHostException {
         return new ElasticsearchTemplate(client());
-    }
+    }*/
 }
