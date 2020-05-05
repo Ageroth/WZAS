@@ -43,7 +43,7 @@ public class Config {
                 .build();
         TransportClient client = new PreBuiltTransportClient(settings);
         client.addTransportAddress(new TransportAddress(InetAddress.getByName("127.0.0.1")
-                , 9200));
+                , 9300));
         return client;
     }
 
