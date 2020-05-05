@@ -19,7 +19,7 @@ import java.net.UnknownHostException;
 @EnableElasticsearchRepositories(basePackages = "pl.lodz.p.it.wzas.repository")
 public class Config {
 
-    @Value("${elasticsearch.home:/usr/local/Cellar/elasticsearch/5.6.0}")
+    @Value("${elasticsearch.home:/wzas202004/elasticSearch/elasticsearch-7.6.2}")
     private String elasticsearchHome;
 
     @Value("${elasticsearch.cluster.name:elasticsearch}")
@@ -32,7 +32,7 @@ public class Config {
                 .put("path.home", elasticsearchHome)
                 .put("cluster.name", clusterName).build();
         TransportClient client = new PreBuiltTransportClient(elasticsearchSettings);
-        client.addTransportAddress(new TransportAddress(InetAddress.getByName("35.205.203.77"), 9200));
+        client.addTransportAddress(new TransportAddress(InetAddress.getByName("127.0.0.1"), 9200));
         return client;
     }
 
