@@ -24,7 +24,7 @@ public class SongController {
 
     @GetMapping
     public List<Song> getAllSongs() {
-        return (List<Song>) songRepository.findAll();
+        return songRepository.findAll();
     }
 
     @GetMapping("/{id}")
