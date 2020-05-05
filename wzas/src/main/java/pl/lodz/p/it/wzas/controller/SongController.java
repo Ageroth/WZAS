@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.lodz.p.it.wzas.model.Song;
 import pl.lodz.p.it.wzas.repository.SongRepository;
+import pl.lodz.p.it.wzas.service.SearchQueryBuilder;
 
 import javax.validation.constraints.Pattern;
 import java.util.List;
@@ -17,6 +18,8 @@ import java.util.NoSuchElementException;
 public class SongController {
 
     private SongRepository songRepository;
+    @Autowired
+    private SearchQueryBuilder searchQueryBuilder;
 
     @Autowired
     public SongController(SongRepository songRepository) {
@@ -41,5 +44,10 @@ public class SongController {
     @GetMapping("/contains/{word}")
     public List<Song> getSongByTextContaining(@PathVariable String word) {
         return songRepository.findSongByTextContaining(word);
+    }
+
+    @GetMapping("/builder/contains/{text}")
+    public List<Song> getSongByTextContainingFormQuery(@PathVariable String text) {
+        return searchQueryBuilder.getSongsContaining(text);
     }
 }
