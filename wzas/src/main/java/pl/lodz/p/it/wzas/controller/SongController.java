@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.lodz.p.it.wzas.model.Song;
 import pl.lodz.p.it.wzas.repository.SongRepository;
 
+import javax.validation.constraints.Pattern;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -35,5 +36,10 @@ public class SongController {
     @GetMapping("/artists/{artist}")
     public List<Song> getSongByArtist(@PathVariable String artist) {
         return songRepository.findByArtist(artist);
+    }
+
+    @GetMapping("/contains/{word}")
+    public List<Song> getSongByTextContaining(@PathVariable String word) {
+        return songRepository.findSongByTextContaining(word);
     }
 }
