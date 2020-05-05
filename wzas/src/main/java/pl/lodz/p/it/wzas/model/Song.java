@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 
-@Document(indexName = "songs", type = "doc")
+@Document(indexName = "songs", type = "incident")
 public class Song {
     @Id
     private String id;
