@@ -22,9 +22,6 @@ public class SearchQueryBuilder {
 
     public List<Song> getSongsContaining(String text) {
         QueryBuilder query = QueryBuilders.boolQuery().must(QueryBuilders.matchPhrasePrefixQuery("text", text));
-        /*QueryBuilder query = QueryBuilders.boolQuery()
-                .should(QueryBuilders.queryStringQuery("*"+text+"*")
-                        .lenient(true).field("song").field("text"));*/
 
         NativeSearchQuery build = new NativeSearchQueryBuilder()
                 .withQuery(query).build();

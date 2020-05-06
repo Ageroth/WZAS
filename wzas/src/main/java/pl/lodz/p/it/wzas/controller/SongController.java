@@ -9,7 +9,6 @@ import pl.lodz.p.it.wzas.model.Song;
 import pl.lodz.p.it.wzas.repository.SongRepository;
 import pl.lodz.p.it.wzas.service.SearchQueryBuilder;
 
-import javax.validation.constraints.Pattern;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -18,12 +17,16 @@ import java.util.NoSuchElementException;
 public class SongController {
 
     private SongRepository songRepository;
-    @Autowired
     private SearchQueryBuilder searchQueryBuilder;
 
     @Autowired
-    public SongController(SongRepository songRepository) {
+    public void setSongRepository(SongRepository songRepository) {
         this.songRepository = songRepository;
+    }
+
+    @Autowired
+    public void setSearchQueryBuilder(SearchQueryBuilder searchQueryBuilder) {
+        this.searchQueryBuilder = searchQueryBuilder;
     }
 
     @GetMapping
