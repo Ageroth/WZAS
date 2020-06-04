@@ -21,7 +21,10 @@ public class Config {
                 .put("cluster.name", "elasticsearch")
                 .build();
         TransportClient client = new PreBuiltTransportClient(settings);
-        client.addTransportAddress(new TransportAddress(InetAddress.getByName("127.0.0.1")
+        //na maszynie wirtualnej
+        //client.addTransportAddress(new TransportAddress(InetAddress.getByName("127.0.0.1")
+        //lokalnie
+        client.addTransportAddress(new TransportAddress(InetAddress.getByName("35.241.205.11")
                 , 9300));
         return client;
     }
