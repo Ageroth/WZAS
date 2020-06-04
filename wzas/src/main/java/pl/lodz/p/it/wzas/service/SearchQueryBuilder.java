@@ -33,7 +33,15 @@ public class SearchQueryBuilder {
             if(!commonWordsList.contains(word)) // wyrzucam popularne słowa
             boolQueryBuilder.must(QueryBuilders.matchPhrasePrefixQuery("text", word));
         }
-        QueryBuilder query = boolQueryBuilder;
+
+        NativeSearchQuery build = new NativeSearchQueryBuilder()
+                .withQuery(boolQueryBuilder).build();
+
+        return elasticsearchTemplate.queryForList(build, Song.class);
+    }
+
+    public List<Song> getSongsContainingOriginal(String text) {
+        QueryBuilder query = QueryBuilders.boolQuery().must(QueryBuilders.matchPhrasePrefixQuery("text", text));
 
         NativeSearchQuery build = new NativeSearchQueryBuilder()
                 .withQuery(query).build();
