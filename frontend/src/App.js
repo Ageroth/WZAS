@@ -1,39 +1,51 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { List } from "./List";
+import { Song } from "./song/Song";
+import {getSongs} from "./utils/Requests";
 
 class App extends Component {
 
-    state = {
-        contacts: []
-    };
-
-    componentDidMount() {
-        fetch( 'http://localhost:8080/songs/Hd0vdnIBEeMqUtusEjob')
-            .then(res => res.json())
-            .then(json => this.setState({ contacts: json.results }));
+    constructor(props) {
+        super(props);
+        this.state = {
+            songs: []
+        };
     }
+
+
+    componentDidMount = () => {
+        let songsList = null;
+
+        getSongs()
+            .then(response => {
+                songsList = response;
+            })
+            .finally(() => {
+                this.setState({
+                    posts: songsList
+                })
+            })
+    };
 
 
 
 
 
     render() {
+        var songs = this.state.songs.map(function (c, index) {
+            return (
+                <Song postId={c.id} artist={c.artist} song={c.song}
+                      link={c.link} text={c.text}/>
+            );
+        });
 
         return (
-            <div className="App">
-                <header className="App-header">
-                    Witamy
-                    <input onInput={}/>
-                    <button>
-                        Nacisnij
-                    </button>
-                        <List contacts={this.state.contacts} />
-                </header>
-
+            <div className="centered">
+                <h2>Piosenki: </h2>
+                {songs}
             </div>
-        );
+        )
     }
 }
 export default App;
