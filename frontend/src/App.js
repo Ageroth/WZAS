@@ -23,7 +23,7 @@ class App extends Component {
             })
             .finally(() => {
                 this.setState({
-                    posts: songsList
+                    songs: songsList
                 })
             })
     };
