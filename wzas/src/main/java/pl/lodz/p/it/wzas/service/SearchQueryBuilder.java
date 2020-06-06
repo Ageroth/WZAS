@@ -43,7 +43,7 @@ public class SearchQueryBuilder {
         text = stringBuilder.toString();
 
         //TODO to wczytywać z frontu:
-        String[] fieldsNames = {"artist", "song", "text"};
+        String[] fieldsNames = {"text", "song"};
         String mSM = "80%"; //procentowo, można też liczbowo jakoś - dopasowanie ile minimum powinno pasować
         String fuzziness = "AUTO"; //Fuzziness okresla o ile liter mozna sie pomylic w danym slowie
                                     // np. jak damy 2 to dupa moze byc zupa, duma, ale też samo "pa"
@@ -51,13 +51,20 @@ public class SearchQueryBuilder {
         int limit = 10; // limit rezultatów
 
         MultiMatchQueryBuilder fuzzyMmQueryBuilder =  QueryBuilders.multiMatchQuery(text, fieldsNames)
-                .field("artist", 3) //to można też zparametryzować i jakoś przerobić ogólnie no nw.
-                .field("song", 3) // ten boost to wgl podnosi "ważność" danego pola
+                //.field("artist", 3) //to można też zparametryzować i jakoś przerobić ogólnie no nw.
+                //.field("song", 3) // ten boost to wgl podnosi "ważność" danego pola
                 .minimumShouldMatch(mSM)
                 .fuzziness(fuzziness)
                 .slop(slop);
 
-        BoolQueryBuilder bqb = boolQuery().should(fuzzyMmQueryBuilder);
+        //BoolQueryBuilder bqb = boolQuery().should(fuzzyMmQueryBuilder);
+        MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(text, fieldsNames)
+                //ten typ chyba najlepszy ale nwm w sumie
+                .type(MultiMatchQueryBuilder.Type.PHRASE).field("text", 3)
+                .boost(5).slop(slop);
+
+
+        BoolQueryBuilder bqb = boolQuery().should(multiMatchQuery).should(fuzzyMmQueryBuilder);
 
         NativeSearchQuery build = new NativeSearchQueryBuilder().withPageable(PageRequest.of(0,limit))
                 .withQuery(bqb).build();
