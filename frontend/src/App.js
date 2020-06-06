@@ -9,15 +9,19 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            songs: []
+            songs: [],
+            value:''
         };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
-    componentDidMount = () => {
+    display = (value) => {
         let songsList = null;
 
-        getSongs()
+        getSongs(value)
             .then(response => {
                 songsList = response;
             })
@@ -28,6 +32,11 @@ class App extends Component {
             })
     };
 
+    handleChange(event) {
+        this.setState({value: event.target.value});  }
+    handleSubmit(event) {
+        this.display(this.state.value)
+    }
 
 
 
@@ -42,6 +51,9 @@ class App extends Component {
 
         return (
             <div className="centered">
+
+                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                <button onClick={this.display}>Sprawdź</button>
                 <h2>Piosenki: </h2>
                 {songs}
             </div>

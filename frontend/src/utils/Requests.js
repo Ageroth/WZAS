@@ -30,9 +30,9 @@ const request = (options) => {
 
 
 
-export function getSongs() {
+export function getSongs(value) {
     return request({
-        url: API_BASE_URL + "/songs/artists/Rihanna",
+        url: API_BASE_URL + "/songs/artists/?artist="+value,
         method: 'GET',
     });
 }
