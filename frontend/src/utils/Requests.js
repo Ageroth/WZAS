@@ -1,10 +1,6 @@
 import {API_BASE_URL} from './Constants';
 
 
-
-
-
-
 const request = (options) => {
     const headers = new Headers({
         'Content-Type': 'application/json',
@@ -25,14 +21,9 @@ const request = (options) => {
         );
 };
 
-
-
-
-
-
 export function getSongs(value) {
     return request({
-        url: API_BASE_URL + "/songs/artists/?artist="+value,
+        url: API_BASE_URL + "/songs/artists/" + value,
         method: 'GET',
     });
 }
