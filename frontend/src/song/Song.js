@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import './Song.css'
+import styles from './Song.css';
 
 export class Song extends Component {
     constructor(props) {
@@ -21,22 +22,65 @@ export class Song extends Component {
         const text = this.state.text;
 
 
-        return <article className="Post" ref="Post">
-            <header>
-                <div>
-                    <div>
-                        {artist}, {song}
-                    </div>
+        // return <article className="Post" ref="Post">
+        //     <header>
+        //         <div>
+        //             <div>
+        //                 <h1>
+        //                     {artist}
+        //                 </h1>
+        //                <h1>
+        //                    {song}
+        //                </h1>
+        //
+        //             </div>
+        //         </div>
+        //     </header>
+        //     <div>
+        //         <div>
+        //             <h1>
+        //                 {link}
+        //             </h1>
+        //
+        //         </div>
+        //     </div>
+        //     <div className="Post-description">
+        //         <label>{text}</label>
+        //     </div>
+        // </article>;
+
+        return (
+            <div className={styles.app}>
+
+                <table className={styles.table}>
+                    <thead>
+                    <tr>
+                        <th>Artysta</th>
+                        <th>Piosenka</th>
+                        <th>Tekst</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{artist}</td>
+                        <td>{song}</td>
+                        <td>{text}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+
+                <div className={styles.pagination}>
+                    <span>&laquo;</span>
+                    <span className={styles.active}>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
                 </div>
-            </header>
-            <div>
-                <div>
-                    {link}
-                </div>
+
             </div>
-            <div className="Post-description">
-                <label>{text}</label>
-            </div>
-        </article>;
+        );
     }
+
 }
