@@ -1,9 +1,8 @@
 import React, {Component, useState} from 'react';
 import './App.css';
 import {Song} from "./song/Song";
-import Pagination from "./Pagination";
 import {getSongsByArtist, getSongsByWord, getSongsByText} from "./utils/Requests";
-// import { Pagination } from 'antd';
+
 
 
 class App extends Component {
@@ -15,7 +14,7 @@ class App extends Component {
             artist: '',
             word: '',
             text: '',
-            currentPage:1
+
         };
 
         this.handleChangeArtist = this.handleChangeArtist.bind(this);
@@ -28,14 +27,9 @@ class App extends Component {
         this.handleSubmitText = this.handleSubmitText.bind(this);
 
         this.reloadPage = this.reloadPage.bind(this);
-        this.setCurrentPage = this.setCurrentPage.bind(this);
+
     }
-    setCurrentPage(pageNumber) {
-        this.setState({
-            currentPage:pageNumber
-        })
-        alert(this.state.currentPage)
-    }
+
 
     displaySongsByArtist(value) {
         let songsList = null;
@@ -144,19 +138,7 @@ class App extends Component {
 
         });
 
-        // const [posts, setPosts] = useState([]);
-        // const [loading, setLoading] = useState(false);
-        //let currentPage=1;
-        const postsPerPage = 3;
 
-
-
-        let indexOfLastPost = this.state.currentPage * postsPerPage;
-        let indexOfFirstPost = indexOfLastPost - postsPerPage;
-        let currentPosts = result.slice(indexOfFirstPost, indexOfLastPost);
-
-        // Change page
-        let paginate = pageNumber => this.setCurrentPage(pageNumber);
 
         return (
             <div className="centered">
@@ -174,15 +156,7 @@ class App extends Component {
                     <span>Odśwież</span>
                 </button>
 
-
-
-                {currentPosts}
-                <Pagination
-                    postsPerPage={postsPerPage}
-                    totalPosts={result.length}
-                    paginate={paginate}
-                />
-                {/*{result}*/}
+                {result}
 
             </div>
         )

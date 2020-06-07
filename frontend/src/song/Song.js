@@ -15,14 +15,7 @@ export class Song extends Component {
         }
     }
 
-    highlightText(sentence, wordToHighlight){
 
-        let highlightedText = sentence.split(" ")
-            .map(word => word.toUpperCase() === wordToHighlight.toUpperCase() ? `<b>${word}</b>` : word)
-            .join(" ");
-
-        return  {__html: highlightedText};
-    }
 
 
     render() {
@@ -33,58 +26,8 @@ export class Song extends Component {
         const text = this.state.text;
 
 
-        // return <article className="Post" ref="Post">
-        //     <header>
-        //         <div>
-        //             <div>
-        //                 <h1>
-        //                     {artist}
-        //                 </h1>
-        //                <h1>
-        //                    {song}
-        //                </h1>
-        //
-        //             </div>
-        //         </div>
-        //     </header>
-        //     <div>
-        //         <div>
-        //             <h1>
-        //                 {link}
-        //             </h1>
-        //
-        //         </div>
-        //     </div>
-        //     <div className="Post-description">
-        //         <label>{text}</label>
-        //     </div>
-        // </article>;
-
         return (
-            // <div className={styles.app}>
-            //
-            //     <table className={styles.table}>
-            //         <thead>
-            //         <tr>
-            //             <th>Artysta</th>
-            //             <th>Piosenka</th>
-            //             <th>Tekst</th>
-            //         </tr>
-            //         </thead>
-            //         <tbody>
-            //         <tr>
-            //             <td>{artist}</td>
-            //             <td>{song}</td>
-            //             <td>{text}</td>
-            //         </tr>
-            //
-            //         </tbody>
-            //     </table>
-            //
-            //
-            //
-            //
-            // </div>
+
             <div id="song">
                 <div className='list-group mb-4'>
                     <div id="artist">
@@ -93,10 +36,10 @@ export class Song extends Component {
                     <div id="name" >
                         Piosenka: {song}
                     </div>
-                    {/*<div id="text">*/}
-                    {/*    {text}*/}
-                    {/*</div>*/}
-                    <div id="text" dangerouslySetInnerHTML={this.highlightText(text, "vfjvfjh")} />
+                    <div id="text">
+                        {text}
+                    </div>
+
                 </div>
             </div>
 
