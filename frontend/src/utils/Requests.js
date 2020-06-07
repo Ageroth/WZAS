@@ -38,7 +38,7 @@ export function getSongsByWord(value) {
 
 export function getSongsByText(value) {
     return request({
-        url: API_BASE_URL + "/songs/builder/contains/" + value,
+        url: API_BASE_URL + "/songs/builder/contains/sentence?text=" + value,
         method: 'GET',
     });
 }

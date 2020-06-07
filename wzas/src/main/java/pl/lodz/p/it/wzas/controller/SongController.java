@@ -1,10 +1,7 @@
 package pl.lodz.p.it.wzas.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.lodz.p.it.wzas.model.Song;
 import pl.lodz.p.it.wzas.repository.SongRepository;
 import pl.lodz.p.it.wzas.service.SearchQueryBuilder;
@@ -49,8 +46,8 @@ public class SongController {
         return songRepository.findSongByTextContaining(word);
     }
 
-    @GetMapping("/builder/contains/{text}")
-    public List<Song> getSongByTextContainingFormQuery(@PathVariable String text) {
+    @GetMapping("/builder/contains/sentence")
+    public List<Song> getSongByTextContainingFormQuery(@RequestParam String text) {
         return searchQueryBuilder.getSongsContaining(text);
     }
 }
