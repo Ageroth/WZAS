@@ -80,3 +80,33 @@ td:first-child {
     color: white;
     border: 1px solid #0099FF;
 }
+
+div #song {
+    background-color: #feffcf;
+    border-style: double;
+    margin: 1px;
+}
+
+div #artist{
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+}
+
+div #name {
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+}
+
+div #text {
+
+    font-size: 12px;
+    text-align: center;
+}
+
+
+
+/*li #name {*/
+/*    font-weight: bold;*/
+/*}*/

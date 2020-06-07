@@ -138,7 +138,7 @@ class App extends Component {
         const result = this.state.songs.map(function (c) {
             return (
                 <Song postId={c.id} artist={c.artist} song={c.song}
-                      link={c.link} text={c.text}/>
+                      word={c.word} text={c.text}/>
             );
 
 
@@ -147,16 +147,16 @@ class App extends Component {
         // const [posts, setPosts] = useState([]);
         // const [loading, setLoading] = useState(false);
         //let currentPage=1;
-        const postsPerPage = 4;
+        const postsPerPage = 3;
 
 
-        // Get current posts
-        const indexOfLastPost = this.state.currentPage * postsPerPage;
-        const indexOfFirstPost = indexOfLastPost - postsPerPage;
-        const currentPosts = result.slice(indexOfFirstPost, indexOfLastPost);
+
+        let indexOfLastPost = this.state.currentPage * postsPerPage;
+        let indexOfFirstPost = indexOfLastPost - postsPerPage;
+        let currentPosts = result.slice(indexOfFirstPost, indexOfLastPost);
 
         // Change page
-        const paginate = pageNumber => this.setCurrentPage(pageNumber);
+        let paginate = pageNumber => this.setCurrentPage(pageNumber);
 
         return (
             <div className="centered">
@@ -164,7 +164,7 @@ class App extends Component {
                 Wpisz Artyste <input type="text" value={this.state.artist} onChange={this.handleChangeArtist}/>
                 <button onClick={this.handleSubmitArtist}>Sprawdź</button>
 
-                Wpisz Slowo <input type="text" value={this.state.word} onChange={this.handleChangeWord}/>
+                Wpisz Słowo <input type="text" value={this.state.word} onChange={this.handleChangeWord}/>
                 <button onClick={this.handleSubmitWord}>Sprawdź</button>
 
                 Wpisz Tekst <input type="text" value={this.state.text} onChange={this.handleChangeText}/>

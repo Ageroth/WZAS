@@ -10,15 +10,26 @@ export class Song extends Component {
             artist: props.artist,
             song: props.song,
             link: props.link,
-            text: props.text
+            text: props.text,
+            word: props.word
         }
     }
+
+    highlightText(sentence, wordToHighlight){
+
+        let highlightedText = sentence.split(" ")
+            .map(word => word.toUpperCase() === wordToHighlight.toUpperCase() ? `<b>${word}</b>` : word)
+            .join(" ");
+
+        return  {__html: highlightedText};
+    }
+
 
     render() {
         const songId = this.state.songId;
         const artist = this.state.artist;
         const song = this.state.song;
-        const link = this.state.link;
+        const word = this.state.word;
         const text = this.state.text;
 
 
@@ -74,9 +85,21 @@ export class Song extends Component {
             //
             //
             // </div>
-            <ul className='list-group mb-4'>
-               <li>{artist} {song} {text} </li>
-            </ul>
+            <div id="song">
+                <div className='list-group mb-4'>
+                    <div id="artist">
+                        Artysta: {artist}
+                    </div>
+                    <div id="name" >
+                        Piosenka: {song}
+                    </div>
+                    {/*<div id="text">*/}
+                    {/*    {text}*/}
+                    {/*</div>*/}
+                    <div id="text" dangerouslySetInnerHTML={this.highlightText(text, "vfjvfjh")} />
+                </div>
+            </div>
+
         );
     }
 
