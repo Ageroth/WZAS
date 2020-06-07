@@ -1,10 +1,9 @@
 package pl.lodz.p.it.wzas.service;
 
-import org.elasticsearch.action.search.SearchRequestBuilder;
-import org.elasticsearch.common.unit.Fuzziness;
-import org.elasticsearch.index.query.*;
-import org.elasticsearch.index.search.MultiMatchQuery;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
@@ -13,8 +12,6 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.stereotype.Service;
 import pl.lodz.p.it.wzas.model.Song;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,18 +29,19 @@ public class SearchQueryBuilder {
         this.elasticsearchTemplate = elasticsearchTemplate;
     }
 
-    public List<Song> getSongsContaining(String text) {
-        String[] words= text.split(" ");
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String word : words) {
-            if(!commonWordsList.contains(word)) // wyrzucam popularne słowa
-                stringBuilder.append(word).append(" ");
+    public List<Song> getSongsContaining(String text, boolean divideWords, String[] fieldsNames) {
+
+        if(divideWords) {
+            String[] words = text.split(" ");
+            StringBuilder stringBuilder = new StringBuilder();
+            for (String word : words) {
+                if (!commonWordsList.contains(word)) // wyrzucam popularne słowa
+                    stringBuilder.append(word).append(" ");
+            }
+            text = stringBuilder.toString();
         }
 
-        text = stringBuilder.toString();
-
-        //TODO to wczytywać z frontu:
-        String[] fieldsNames = {"text", "song"};
+        //String[] fieldsNames = {"text", "song"};
         String mSM = "80%"; //procentowo, można też liczbowo jakoś - dopasowanie ile minimum powinno pasować
         String fuzziness = "AUTO"; //Fuzziness okresla o ile liter mozna sie pomylic w danym slowie
                                     // np. jak damy 2 to dupa moze byc zupa, duma, ale też samo "pa"
@@ -51,8 +49,6 @@ public class SearchQueryBuilder {
         int limit = 10; // limit rezultatów
 
         MultiMatchQueryBuilder fuzzyMmQueryBuilder =  QueryBuilders.multiMatchQuery(text, fieldsNames)
-                //.field("artist", 3) //to można też zparametryzować i jakoś przerobić ogólnie no nw.
-                //.field("song", 3) // ten boost to wgl podnosi "ważność" danego pola
                 .minimumShouldMatch(mSM)
                 .fuzziness(fuzziness)
                 .slop(slop);

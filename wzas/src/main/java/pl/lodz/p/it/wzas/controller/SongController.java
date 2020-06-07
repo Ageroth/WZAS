@@ -51,6 +51,7 @@ public class SongController {
 
     @GetMapping("/builder/contains/{text}")
     public List<Song> getSongByTextContainingFormQuery(@PathVariable String text) {
-        return searchQueryBuilder.getSongsContaining(text);
+        String[] fieldsNames = {"text", "song"};
+        return searchQueryBuilder.getSongsContaining(text, false, fieldsNames);
     }
 }
