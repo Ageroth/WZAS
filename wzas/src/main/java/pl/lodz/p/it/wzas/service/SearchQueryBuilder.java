@@ -1,9 +1,7 @@
 package pl.lodz.p.it.wzas.service;
 
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.MultiMatchQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.*;
+import org.elasticsearch.index.search.MultiMatchQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
@@ -29,8 +27,7 @@ public class SearchQueryBuilder {
         this.elasticsearchTemplate = elasticsearchTemplate;
     }
 
-    public List<Song> getSongsContaining(String text, boolean divideWords, String[] fieldsNames) {
-
+    public List<Song> getSongsContaining(String text, boolean divideWords) {
         if(divideWords) {
             String[] words = text.split(" ");
             StringBuilder stringBuilder = new StringBuilder();
@@ -41,26 +38,25 @@ public class SearchQueryBuilder {
             text = stringBuilder.toString();
         }
 
-        //String[] fieldsNames = {"text", "song"};
-        String mSM = "80%"; //procentowo, można też liczbowo jakoś - dopasowanie ile minimum powinno pasować
-        String fuzziness = "AUTO"; //Fuzziness okresla o ile liter mozna sie pomylic w danym slowie
-                                    // np. jak damy 2 to dupa moze byc zupa, duma, ale też samo "pa"
-        int slop = 2; // jak odległe mogą być od siebie wpisane słowa
-        int limit = 10; // limit rezultatów
+        /*String[] fieldsNames = {"text", "song"};
+        String fuzziness = "0.2";
+        int slop = 2;
+
 
         MultiMatchQueryBuilder fuzzyMmQueryBuilder =  QueryBuilders.multiMatchQuery(text, fieldsNames)
-                .minimumShouldMatch(mSM)
                 .fuzziness(fuzziness)
                 .slop(slop);
 
-        //BoolQueryBuilder bqb = boolQuery().should(fuzzyMmQueryBuilder);
         MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(text, fieldsNames)
-                //ten typ chyba najlepszy ale nwm w sumie
-                .type(MultiMatchQueryBuilder.Type.PHRASE).field("text", 3)
-                .boost(5).slop(slop);
+                .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS)
+                .field("text", 3)
+                .boost(3).slop(slop);*/
 
+        int limit = 10;
 
-        BoolQueryBuilder bqb = boolQuery().should(multiMatchQuery).should(fuzzyMmQueryBuilder);
+        MatchQueryBuilder matchQuery = QueryBuilders.matchQuery("text", text);
+
+        BoolQueryBuilder bqb = boolQuery().should(matchQuery);
 
         NativeSearchQuery build = new NativeSearchQueryBuilder().withPageable(PageRequest.of(0,limit))
                 .withQuery(bqb).build();
