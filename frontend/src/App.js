@@ -1,7 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import './App.css';
 import {Song} from "./song/Song";
+import Pagination from "./Pagination";
 import {getSongsByArtist, getSongsByWord, getSongsByText} from "./utils/Requests";
+// import { Pagination } from 'antd';
+
 
 class App extends Component {
 
@@ -11,7 +14,8 @@ class App extends Component {
             songs: [],
             artist: '',
             word: '',
-            text: ''
+            text: '',
+            currentPage:1
         };
 
         this.handleChangeArtist = this.handleChangeArtist.bind(this);
@@ -24,8 +28,14 @@ class App extends Component {
         this.handleSubmitText = this.handleSubmitText.bind(this);
 
         this.reloadPage = this.reloadPage.bind(this);
+        this.setCurrentPage = this.setCurrentPage.bind(this);
     }
-
+    setCurrentPage(pageNumber) {
+        this.setState({
+            currentPage:pageNumber
+        })
+        alert(this.state.currentPage)
+    }
 
     displaySongsByArtist(value) {
         let songsList = null;
@@ -119,13 +129,34 @@ class App extends Component {
         )
     }
 
+
+
+
     render() {
+
+
         const result = this.state.songs.map(function (c) {
             return (
                 <Song postId={c.id} artist={c.artist} song={c.song}
                       link={c.link} text={c.text}/>
             );
+
+
         });
+
+        // const [posts, setPosts] = useState([]);
+        // const [loading, setLoading] = useState(false);
+        //let currentPage=1;
+        const postsPerPage = 4;
+
+
+        // Get current posts
+        const indexOfLastPost = this.state.currentPage * postsPerPage;
+        const indexOfFirstPost = indexOfLastPost - postsPerPage;
+        const currentPosts = result.slice(indexOfFirstPost, indexOfLastPost);
+
+        // Change page
+        const paginate = pageNumber => this.setCurrentPage(pageNumber);
 
         return (
             <div className="centered">
@@ -143,7 +174,16 @@ class App extends Component {
                     <span>Odśwież</span>
                 </button>
 
-                {result}
+
+
+                {currentPosts}
+                <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={result.length}
+                    paginate={paginate}
+                />
+                {/*{result}*/}
+
             </div>
         )
     }

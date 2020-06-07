@@ -50,36 +50,33 @@ export class Song extends Component {
         // </article>;
 
         return (
-            <div className={styles.app}>
-
-                <table className={styles.table}>
-                    <thead>
-                    <tr>
-                        <th>Artysta</th>
-                        <th>Piosenka</th>
-                        <th>Tekst</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{artist}</td>
-                        <td>{song}</td>
-                        <td>{text}</td>
-                    </tr>
-
-                    </tbody>
-                </table>
-
-
-                <div className={styles.pagination}>
-                    <span>&laquo;</span>
-                    <span className={styles.active}>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                </div>
-
-            </div>
+            // <div className={styles.app}>
+            //
+            //     <table className={styles.table}>
+            //         <thead>
+            //         <tr>
+            //             <th>Artysta</th>
+            //             <th>Piosenka</th>
+            //             <th>Tekst</th>
+            //         </tr>
+            //         </thead>
+            //         <tbody>
+            //         <tr>
+            //             <td>{artist}</td>
+            //             <td>{song}</td>
+            //             <td>{text}</td>
+            //         </tr>
+            //
+            //         </tbody>
+            //     </table>
+            //
+            //
+            //
+            //
+            // </div>
+            <ul className='list-group mb-4'>
+               <li>{artist} {song} {text} </li>
+            </ul>
         );
     }
 
