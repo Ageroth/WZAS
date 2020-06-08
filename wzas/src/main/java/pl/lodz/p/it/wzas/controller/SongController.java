@@ -27,11 +27,6 @@ public class SongController {
         this.searchQueryBuilder = searchQueryBuilder;
     }
 
-    @GetMapping
-    public List<Song> getAllSongs() {
-        return songRepository.findAll();
-    }
-
     @GetMapping("/{id}")
     public Song getSongById(@PathVariable String id) {
         return songRepository.findById(id).orElseThrow(NoSuchElementException::new);
@@ -40,11 +35,6 @@ public class SongController {
     @GetMapping("/artists/{artist}")
     public List<Song> getSongByArtist(@PathVariable String artist) {
         return songRepository.findByArtist(artist);
-    }
-
-    @GetMapping("/contains/{word}")
-    public List<Song> getSongByTextContaining(@PathVariable String word) {
-        return songRepository.findSongByTextContaining(word);
     }
 
     @PostMapping("/builder/contains/sentence")

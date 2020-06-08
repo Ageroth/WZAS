@@ -8,6 +8,4 @@ import java.util.List;
 
 public interface SongRepository extends ElasticsearchRepository<Song, String> {
     List<Song> findByArtist(String artist);
-    List<Song> findAll();
-    List<Song> findSongByTextContaining(String string);
 }
