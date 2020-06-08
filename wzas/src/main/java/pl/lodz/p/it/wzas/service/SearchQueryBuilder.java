@@ -33,7 +33,7 @@ public class SearchQueryBuilder {
             String[] words = text.split(" ");
             StringBuilder stringBuilder = new StringBuilder();
             for (String word : words) {
-                if (!commonWordsList.contains(word)) // wyrzucam popularne słowa
+                if (!commonWordsList.contains(word))
                     stringBuilder.append(word).append(" ");
             }
             text = stringBuilder.toString();
@@ -61,15 +61,6 @@ public class SearchQueryBuilder {
 
         NativeSearchQuery build = new NativeSearchQueryBuilder().withPageable(PageRequest.of(0,limit))
                 .withQuery(bqb).build();
-
-        return elasticsearchTemplate.queryForList(build, Song.class);
-    }
-
-    public List<Song> getSongsContainingOriginal(String text) {
-        QueryBuilder query = boolQuery().must(QueryBuilders.matchPhrasePrefixQuery("text", text));
-
-        NativeSearchQuery build = new NativeSearchQueryBuilder()
-                .withQuery(query).build();
 
         return elasticsearchTemplate.queryForList(build, Song.class);
     }

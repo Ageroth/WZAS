@@ -16,7 +16,6 @@ class App extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.reloadPage = this.reloadPage.bind(this);
     }
 
     handleChange(event) {
@@ -60,8 +59,7 @@ class App extends Component {
         return (
             <div className="centered">
                 <h1>Piosenki: </h1>
-                <input type="text" value={this.state.text} onChange={this.handleChange}/>
-                <button onClick={this.handleSubmit}>Sprawdź</button>
+                <textarea value={this.state.text} onChange={this.handleChange}/>
 
                 <div>
                     <label>
@@ -71,6 +69,9 @@ class App extends Component {
                         />
                         Pomijaj popularne słowa
                     </label>
+                </div>
+                <div>
+                    <button onClick={this.handleSubmit}>Sprawdź</button>
                 </div>
                 {result}
             </div>
