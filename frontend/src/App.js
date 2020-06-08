@@ -24,6 +24,9 @@ class App extends Component {
     }
 
     handleSubmit() {
+        this.setState({
+            songs: [],
+        });
         const flag = Object.assign({}, {flag: this.state.isChecked});
 
         let songsList = null;
@@ -69,13 +72,15 @@ class App extends Component {
                 <input type="text" value={this.state.text} onChange={this.handleChange}/>
                 <button onClick={this.handleSubmit}>Sprawdź</button>
 
-                <label>
-                    <input type="checkbox"
-                           checked={this.state.isChecked}
-                           onChange={this.toggleChange}
-                    />
-                    Pomijaj
-                </label>
+                <div>
+                    <label>
+                        <input type="checkbox"
+                               checked={this.state.isChecked}
+                               onChange={this.toggleChange}
+                        />
+                        Pomijaj popularne słowa
+                    </label>
+                </div>
 
                 <button type="button" onClick={this.reloadPage}>
                     <span>Odśwież</span>
