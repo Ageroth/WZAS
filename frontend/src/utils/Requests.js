@@ -36,9 +36,10 @@ export function getSongsByWord(value) {
     });
 }
 
-export function getSongsByText(value) {
+export function getSongsByText(value, flag) {
     return request({
         url: API_BASE_URL + "/songs/builder/contains/sentence?text=" + value,
-        method: 'GET',
+        method: 'POST',
+        body: JSON.stringify(flag)
     });
 }

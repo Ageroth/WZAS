@@ -2,6 +2,7 @@ package pl.lodz.p.it.wzas.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pl.lodz.p.it.wzas.model.SkipRequest;
 import pl.lodz.p.it.wzas.model.Song;
 import pl.lodz.p.it.wzas.repository.SongRepository;
 import pl.lodz.p.it.wzas.service.SearchQueryBuilder;
@@ -46,8 +47,8 @@ public class SongController {
         return songRepository.findSongByTextContaining(word);
     }
 
-    @GetMapping("/builder/contains/sentence")
-    public List<Song> getSongByTextContainingFormQuery(@RequestParam String text) {
-        return searchQueryBuilder.getSongsContaining(text);
+    @PostMapping("/builder/contains/sentence")
+    public List<Song> getSongByTextContainingFormQuery(@RequestParam String text, @RequestBody SkipRequest skipRequest) {
+        return searchQueryBuilder.getSongsContaining(text, skipRequest);
     }
 }
