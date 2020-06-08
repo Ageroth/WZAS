@@ -8,6 +8,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
+import pl.lodz.p.it.wzas.model.SkipRequest;
 import pl.lodz.p.it.wzas.model.Song;
 
 import java.util.Arrays;
@@ -27,8 +28,8 @@ public class SearchQueryBuilder {
         this.elasticsearchTemplate = elasticsearchTemplate;
     }
 
-    public List<Song> getSongsContaining(String text, boolean divideWords) {
-        if(divideWords) {
+    public List<Song> getSongsContaining(String text, SkipRequest skipRequest) {
+        if(skipRequest.getFlag()) {
             String[] words = text.split(" ");
             StringBuilder stringBuilder = new StringBuilder();
             for (String word : words) {
