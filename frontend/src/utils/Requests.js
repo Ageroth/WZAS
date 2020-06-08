@@ -21,21 +21,6 @@ const request = (options) => {
         );
 };
 
-export function getSongsByArtist(value) {
-    return request({
-        url: API_BASE_URL + "/songs/artists/" + value,
-        method: 'GET',
-    });
-}
-
-
-export function getSongsByWord(value) {
-    return request({
-        url: API_BASE_URL + "/songs/contains/" + value,
-        method: 'GET',
-    });
-}
-
 export function getSongsByText(value, flag) {
     return request({
         url: API_BASE_URL + "/songs/builder/contains/sentence?text=" + value,

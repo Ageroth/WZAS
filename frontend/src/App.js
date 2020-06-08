@@ -43,15 +43,6 @@ class App extends Component {
             })
     }
 
-    reloadPage() {
-        this.setState({
-                songs: [],
-                text: '',
-                isChecked: true
-            }
-        )
-    }
-
     toggleChange = () => {
         this.setState({
             isChecked: !this.state.isChecked,
@@ -81,11 +72,6 @@ class App extends Component {
                         Pomijaj popularne słowa
                     </label>
                 </div>
-
-                <button type="button" onClick={this.reloadPage}>
-                    <span>Odśwież</span>
-                </button>
-
                 {result}
             </div>
         )
