@@ -54,10 +54,17 @@ public class SearchQueryBuilder {
                 .boost(3).slop(slop);*/
 
         int limit = 10;
+        int slop = 2;
+        String fuzziness = "AUTO";
+        String mSM = "70%";
 
-        MatchQueryBuilder matchQuery = QueryBuilders.matchQuery("text", text);
+        QueryBuilder qb1 = QueryBuilders.matchPhraseQuery("text", text)
+                .slop(slop);
+        QueryBuilder qb2 = QueryBuilders.matchQuery("text", text)
+                .minimumShouldMatch(mSM)
+                .fuzziness(fuzziness);
 
-        BoolQueryBuilder bqb = boolQuery().should(matchQuery);
+        BoolQueryBuilder bqb = boolQuery().should(qb1).should(qb2);
 
         NativeSearchQuery build = new NativeSearchQueryBuilder().withPageable(PageRequest.of(0,limit))
                 .withQuery(bqb).build();
